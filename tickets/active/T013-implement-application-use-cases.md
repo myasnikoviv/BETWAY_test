@@ -1,7 +1,7 @@
 # T013 — Implement Application Use Cases (Resolve, Create, Convert)
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T013-implement-application-use-cases`
 * **Depends on**: T012
 
