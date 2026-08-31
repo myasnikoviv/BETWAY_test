@@ -471,34 +471,54 @@ graph TD
 
 ## 10. Flutter Mobile Architecture
 
-The mobile application is a lightweight, single-screen Flutter application located in `mobile/`.
+The mobile application is a lightweight, single-screen Flutter application located in `mobile/`, designed strictly in accordance with SOLID principles and explicit separation of concerns:
 
 ```mermaid
 graph TD
     subgraph "Flutter Mobile Architecture"
-        MainScreen["lib/screens/slip_viewer_screen.dart"]
+        MainScreen["presentation/screens/slip_viewer_screen.dart"]
         
-        subgraph "State & Presentation"
-            Notifier["SlipStateNotifier (ChangeNotifier)<br/>(Idle, Loading, Success, Error)"]
-            CodeInputField["BookingCodeInputField"]
-            SelectionListView["SelectionListView & LegTiles"]
+        subgraph "Presentation Layer"
+            Cubit["SlipCubit (flutter_bloc)<br/>(Initial, Loading, Success, Error)"]
+            CodeInputField["BookingCodeInput"]
+            SelectionListView["SelectionCard List"]
             OddsSummaryCard["OddsSummaryCard"]
         end
 
-        subgraph "Data & Network Layer"
-            ApiClient["BetApiClient (http package)"]
-            ModelParser["BetSlipModel.fromJson"]
+        subgraph "Domain Layer"
+            GatewayInterface["SlipGateway (abstract interface class)"]
+            DomainModel["BetSlip & BetSelection Models"]
+        end
+
+        subgraph "Infrastructure Layer"
+            GatewayImpl["SlipRemoteGateway (implements SlipGateway)"]
+            RetrofitClient["SlipRestClient (Retrofit typed API)"]
+            DioClient["Dio HTTP Client (timeouts, interceptors)"]
+        end
+
+        subgraph "Dependency Injection"
+            DIRoot["di/injection.dart (GetIt composition root)"]
         end
 
         MainScreen --> CodeInputField
         MainScreen --> SelectionListView
         MainScreen --> OddsSummaryCard
 
-        CodeInputField --> Notifier
-        Notifier --> ApiClient
-        ApiClient --> ModelParser
+        CodeInputField --> Cubit
+        Cubit -->|calls abstraction (DIP)| GatewayInterface
+        GatewayImpl -.->|implements| GatewayInterface
+        GatewayImpl --> RetrofitClient
+        RetrofitClient --> DioClient
+        DIRoot -.->|provides dependencies| Cubit
+        DIRoot -.->|provides dependencies| GatewayImpl
     end
 ```
+
+### Key Architectural Rules (SOLID)
+1. **Presentation Separation (SRP)**: UI widgets render `SlipState` and dispatch intents. They never execute HTTP calls, parse JSON, or handle network exceptions.
+2. **Domain Gateway Abstraction (DIP & ISP)**: `SlipCubit` depends strictly on `SlipGateway`, never on Dio, Retrofit, or concrete network classes.
+3. **Infrastructure Isolation**: `SlipRemoteGateway` handles Retrofit calls, translates HTTP errors into domain errors, and maps DTOs into canonical `BetSlip` models.
+4. **Mandatory Dependency Injection**: Centralized composition root in `lib/di/injection.dart` (`GetIt`). Dependencies are never instantiated ad hoc in widgets.
 
 ### Delivery Workflow
 1. **Android Build**: Compiled to release APK (`flutter build apk --release`).
@@ -563,10 +583,20 @@ graph TD
 │   └── tsconfig.json
 └── mobile/                             # Flutter Single-Screen Application
     ├── lib/
-    │   ├── core/                       # API constants & HTTP client
-    │   ├── models/                     # Canonical DTO models
-    │   ├── screens/                    # SlipViewScreen
-    │   └── main.dart
+    │   ├── main.dart                   # Application entry point
+    │   ├── di/
+    │   │   └── injection.dart          # GetIt composition root
+    │   ├── domain/
+    │   │   ├── models/                 # Canonical BetSlip & BetSelection
+    │   │   └── gateways/               # abstract interface class SlipGateway
+    │   ├── infrastructure/
+    │   │   ├── api/                    # Retrofit SlipRestClient & Dio client
+    │   │   └── gateways/               # SlipRemoteGateway implementation
+    │   └── presentation/
+    │       ├── cubit/                  # SlipCubit & SlipState
+    │       ├── screens/                # SlipViewerScreen
+    │       └── widgets/                # Decomposed UI widgets
+    ├── test/                           # Unit, Gateway, Cubit, and Widget tests
     ├── pubspec.yaml
     └── README.md                       # Android APK & iOS IPA notes
 ```
