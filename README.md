@@ -34,20 +34,23 @@ Forensic research artifacts are preserved under [`research/betway/`](research/be
 * [`docs/architecture/01-stack-options.md`](docs/architecture/01-stack-options.md): Comparative study of technology stack and hosting options.
 * [`docs/architecture/ADR-0001-stack-selection.md`](docs/architecture/ADR-0001-stack-selection.md): **ADR-0001: Technology Stack and Deployment Topology Selection**.
 * [`docs/architecture/02-application-architecture.md`](docs/architecture/02-application-architecture.md): **Application Architecture Specification v1**.
-
+* [`docs/process/development-workflow.md`](docs/process/development-workflow.md): **Development & Delivery Workflow**.
 
 ## Agent Infrastructure
 * [`AGENTS.md`](AGENTS.md): Repository-level agent entry point and guidelines.
 * [`agents/system-architect.md`](agents/system-architect.md): System Architect agent definition.
+* [`agents/project-delivery-manager.md`](agents/project-delivery-manager.md): Project / Delivery Manager agent definition.
 * [`agents/full-stack-typescript-engineer.md`](agents/full-stack-typescript-engineer.md): Full-Stack TypeScript Engineer agent definition.
 * [`agents/flutter-engineer.md`](agents/flutter-engineer.md): Flutter Engineer agent definition.
-* [`agents/qa-verification-engineer.md`](agents/qa-verification-engineer.md): QA / Verification Engineer agent definition.
 * [`agents/code-architecture-reviewer.md`](agents/code-architecture-reviewer.md): Code & Architecture Reviewer agent definition.
+* [`agents/qa-verification-engineer.md`](agents/qa-verification-engineer.md): QA / Verification Engineer agent definition.
 * [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md): System Architecture analysis skill.
+* [`skills/project-delivery-management/SKILL.md`](skills/project-delivery-management/SKILL.md): Project Delivery Management skill.
 * [`skills/full-stack-typescript-engineering/SKILL.md`](skills/full-stack-typescript-engineering/SKILL.md): Full-Stack TypeScript Engineering skill.
 * [`skills/flutter-engineering/SKILL.md`](skills/flutter-engineering/SKILL.md): Flutter Engineering skill.
 * [`skills/code-architecture-review/SKILL.md`](skills/code-architecture-review/SKILL.md): Code & Architecture Review skill.
 * [`skills/qa-verification/SKILL.md`](skills/qa-verification/SKILL.md): QA & Verification skill.
+
 
 
 
