@@ -28,7 +28,9 @@ This document translates the assessment brief and confirmed scope into a structu
 | **NFR-05** | **Meaningful Git History** | Clean, atomic commit log reflecting progressive engineering milestones. | Brief |
 | **NFR-06** | **Architecture Documentation** | Clear architectural explanation accompanied by Mermaid diagrams. | Brief |
 | **NFR-07** | **Firebase App Distribution** | Deliver the Flutter Android APK through Firebase App Distribution; include iOS IPA note. | Brief |
-| **NFR-08** | **Loom Walkthrough** | 5-minute video walkthrough demonstrating the working product and Betway verification. | Brief |
+| **NFR-08** | **Loom Walkthrough** | 5-minute video walkthrough demonstrating working product, architecture, and the trickiest technical decision made. | Brief |
+| **NFR-09** | **Solution Explanation Note** | Short explanatory note detailing how the solution works. | Brief |
+
 
 ---
 
