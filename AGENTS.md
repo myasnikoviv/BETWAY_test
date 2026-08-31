@@ -31,11 +31,13 @@ This repository follows a disciplined, ticket-driven engineering workflow. All a
 
 ## 3. Active Agent Roles
 
-At this phase of the project, **exactly one agent role exists**:
+The repository defines specialized agent roles for distinct development phases:
 
-* **System Architect** ([`agents/system-architect.md`](agents/system-architect.md)): Responsible for system analysis, boundary definition, option formulation, trade-off evaluation, and architecture decision records.
+1. **System Architect** ([`agents/system-architect.md`](agents/system-architect.md)): Responsible for system analysis, boundary definition, option formulation, trade-off evaluation, architecture decision records (ADRs), and application specifications. Uses [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md).
+2. **Flutter Engineer** ([`agents/flutter-engineer.md`](agents/flutter-engineer.md)): Responsible for implementing, testing, and packaging the Flutter single-screen mobile client (`mobile/`) strictly adhering to the approved system architecture. Uses [`skills/flutter-engineering/SKILL.md`](skills/flutter-engineering/SKILL.md).
 
-*Note: Additional agent roles (e.g. implementation agents, reviewers) will only be introduced when justified by future ticket requirements.*
+*Note: Additional implementation and reviewer roles will be introduced as implementation tickets proceed.*
+
 
 ---
 
