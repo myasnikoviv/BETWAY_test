@@ -19,6 +19,10 @@ Implement the three core application use cases (`ResolveBookingCodeUseCase`, `Cr
 * Invariants: `INV-05` (Convert composes Resolve + Create), `INV-06` (Isolated gateway dependency)
 * Skill: [`skills/full-stack-typescript-engineering/SKILL.md`](../../skills/full-stack-typescript-engineering/SKILL.md)
 
+> [!IMPORTANT]
+> **Stateless Composition Guardrail**: `ConvertBookingCodeUseCase` combines Resolve, selection extraction, and Create into a single stateless workflow. It **must remain concise and direct** (invoking `ResolveBookingCodeUseCase` → validating active selections → invoking `CreateBookingCodeUseCase`). It must **NOT** introduce stateful tracking, complex command buses, or orchestration spaghetti. The Code Reviewer will explicitly audit this invariant (`INV-05`).
+
+
 ---
 
 ## 3. Scope & Deliverables

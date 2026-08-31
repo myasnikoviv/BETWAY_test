@@ -20,6 +20,10 @@ Initialize the Next.js TypeScript project structure under `web/` with strict con
 * Invariants: `INV-02` (Canonical Models), `INV-04` (No Database)
 * Skill: [`skills/full-stack-typescript-engineering/SKILL.md`](../../skills/full-stack-typescript-engineering/SKILL.md)
 
+> [!NOTE]
+> **Foundation Slice Rationale**: T011 intentionally combines the Next.js scaffold, strict TypeScript configuration, canonical domain interfaces, AppError taxonomy, and Vitest runner as a single foundational slice. This establishes the complete, working local environment required for subsequent integration tickets (T012+) without creating bureaucratic micro-tickets.
+
+
 ---
 
 ## 3. Scope & Deliverables
