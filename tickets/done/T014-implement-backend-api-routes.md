@@ -1,7 +1,7 @@
 # T014 — Implement Backend API Route Handlers (/api/v1/*)
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: IMPLEMENTED
+* **Status**: DONE
 * **Branch**: `ticket/T014-implement-backend-api-routes`
 * **Depends on**: T013
 
@@ -65,3 +65,42 @@ Implement the public HTTP API boundary using Next.js Route Handlers (`/api/v1/re
 ## 7. STOP CONDITION
 
 Stop immediately once all `/api/v1/*` Route Handlers are implemented, integration tests pass, and changes are committed. Do not start T015.
+
+---
+
+## 8. Code & Architecture Review Verdict
+
+* **Reviewer**: Code & Architecture Reviewer
+* **Verdict**: `APPROVED`
+* **Findings**: 0 Blocker, 0 Major, 0 Minor.
+* **Invariant Compliance**:
+  - `INV-01` (Direct Betway Prohibition): Client and frontend requests mediated strictly through `/api/v1/*` route handlers without direct client-to-Betway calls.
+  - `INV-02` (Canonical Models / Zero DTO Leakage): Endpoints return canonical domain envelopes (`ApiResponse<T>`) without leaking raw upstream Betway DTOs.
+  - `INV-03` (Consistent API Contract for Web & Flutter): Unified endpoints (`/api/v1/resolve`, `/api/v1/create`, `/api/v1/convert`, `/api/v1/health`) return consistent JSON schema and CORS headers for both Next.js frontend and Flutter mobile client.
+  - `INV-05` (Convert Composition): `/api/v1/convert` delegates directly to `ConvertBookingCodeUseCase`.
+  - `INV-06` (Gateway & Use Case Isolation): Route handlers instantiate use cases with singleton/gateway dependencies without inline Betway logic.
+
+---
+
+## 9. QA / Verification Verdict
+
+* **Engineer**: QA / Verification Engineer
+* **Verdict**: `VERIFIED`
+* **Verification Evidence**:
+  - `npm run test`: 16 test suites, 139/139 tests passing (100% pass rate, including 57 API route and validation tests).
+  - `npm run typecheck`: Passed with 0 TypeScript compiler errors.
+  - `npm run lint`: Passed with 0 ESLint warnings or errors.
+  - `npm run build`: Static production Next.js compilation completed successfully with dynamic Route Handlers `/api/v1/resolve`, `/api/v1/create`, `/api/v1/convert`, `/api/v1/health`.
+
+---
+
+## 10. Definition of Done (DoD) Sign-Off
+
+- [x] 1. Acceptance Criteria: All 5 acceptance criteria satisfied.
+- [x] 2. Quality Gates: Typecheck, test, lint, and build pass 100%.
+- [x] 3. Code Review: `APPROVED` with 0 blocker/major findings.
+- [x] 4. Invariants: `INV-01`, `INV-02`, `INV-03`, `INV-05`, and `INV-06` preserved.
+- [x] 5. QA Verification: Runtime behavior verified with 100% integration test coverage in Vitest.
+- [x] 6. Documentation: Architecture references and ticket logs updated.
+- [x] 7. Clean Git State: Atomically committed with conventional commit standards.
+- [x] 8. Scope Discipline: Zero scope creep, no unapproved dependencies, no premature UI code or database entities introduced.
