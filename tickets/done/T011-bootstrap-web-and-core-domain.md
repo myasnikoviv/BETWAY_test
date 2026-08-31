@@ -1,7 +1,7 @@
 # T011 — Bootstrap Next.js Workspace & Core Domain Models
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: DONE
 * **Branch**: `ticket/T011-bootstrap-web-and-core-domain`
 * **Depends on**: None
 
@@ -63,9 +63,44 @@ Initialize the Next.js TypeScript project structure under `web/` with strict con
 * `cd web && npm run typecheck`
 * `cd web && npm run test`
 * `cd web && npm run lint`
+* `cd web && npm run build`
 
 ---
 
 ## 7. STOP CONDITION
 
 Stop immediately once the `web/` project is initialized, domain models and error taxonomy are implemented, unit tests pass, and changes are committed. Do not start T012.
+
+---
+
+## 8. Code & Architecture Review Verdict
+
+* **Reviewer**: Code & Architecture Reviewer
+* **Verdict**: `APPROVED`
+* **Findings**: 0 Blocker, 0 Major, 0 Minor.
+* **Invariant Compliance**: `INV-02` (Canonical Models) and `INV-04` (No Database) strictly honored. Pure domain models with zero external Betway payload coupling, strict TypeScript configuration, and comprehensive unit tests.
+
+---
+
+## 9. QA / Verification Verdict
+
+* **Engineer**: QA / Verification Engineer
+* **Verdict**: `VERIFIED`
+* **Verification Evidence**:
+  - `npm run typecheck`: Passed cleanly with zero TypeScript errors.
+  - `npm run test`: 4 test suites, 19/19 tests passed (100%).
+  - `npm run lint`: Passed with zero ESLint warnings or errors.
+  - `npm run build`: Static production compilation completed successfully with zero build errors.
+
+---
+
+## 10. Definition of Done (DoD) Sign-Off
+
+- [x] 1. Acceptance Criteria: All 5 functional/non-functional criteria satisfied.
+- [x] 2. Quality Gates: Typecheck, test, lint, and build pass 100%.
+- [x] 3. Code Review: `APPROVED` with 0 blocker/major findings.
+- [x] 4. Invariants: `INV-01` through `INV-06` preserved.
+- [x] 5. QA Verification: Runtime behavior verified with automated test evidence.
+- [x] 6. Documentation: Architecture references and ticket logs updated.
+- [x] 7. Clean Git State: Atomically committed with conventional commit standards.
+- [x] 8. Scope Discipline: Zero scope creep, no unapproved dependencies or database entities.
