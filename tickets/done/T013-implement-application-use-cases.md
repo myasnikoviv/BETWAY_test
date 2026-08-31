@@ -1,7 +1,7 @@
 # T013 — Implement Application Use Cases (Resolve, Create, Convert)
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: DONE
 * **Branch**: `ticket/T013-implement-application-use-cases`
 * **Depends on**: T012
 
@@ -66,3 +66,41 @@ Implement the three core application use cases (`ResolveBookingCodeUseCase`, `Cr
 ## 7. STOP CONDITION
 
 Stop immediately once all three use cases are implemented, unit tests pass, and changes are committed. Do not start T014.
+
+---
+
+## 8. Code & Architecture Review Verdict
+
+* **Reviewer**: Code & Architecture Reviewer
+* **Verdict**: `APPROVED`
+* **Findings**: 0 Blocker, 0 Major, 0 Minor.
+* **Invariant Compliance**:
+  - `INV-01` (Direct Betway Prohibition): Client/domain never directly interacts with Betway; mediated strictly through `IBetwayGateway`.
+  - `INV-02` (Canonical Models / Zero DTO Leakage): Domain use cases operate exclusively on canonical domain models (`BetSlip`, `BetSelection`, `ConvertResult`).
+  - `INV-05` (Convert Composition): `ConvertBookingCodeUseCase` strictly composes `ResolveBookingCodeUseCase` and `CreateBookingCodeUseCase` without duplicated Betway logic or stateful orchestration.
+  - `INV-06` (Gateway Isolation): Use cases depend strictly on `IBetwayGateway` abstraction via constructor dependency injection.
+
+---
+
+## 9. QA / Verification Verdict
+
+* **Engineer**: QA / Verification Engineer
+* **Verdict**: `VERIFIED`
+* **Verification Evidence**:
+  - `npm run test`: 10 test suites, 82/82 tests passing (100% pass rate, 30 new use-case unit tests).
+  - `npm run typecheck`: Passed with 0 TypeScript compiler errors.
+  - `npm run lint`: Passed with 0 ESLint warnings or errors.
+  - `npm run build`: Static production compilation completed successfully with zero build errors.
+
+---
+
+## 10. Definition of Done (DoD) Sign-Off
+
+- [x] 1. Acceptance Criteria: All 5 acceptance criteria satisfied.
+- [x] 2. Quality Gates: Typecheck, test, lint, and build pass 100%.
+- [x] 3. Code Review: `APPROVED` with 0 blocker/major findings.
+- [x] 4. Invariants: `INV-01`, `INV-02`, `INV-05`, and `INV-06` preserved.
+- [x] 5. QA Verification: Runtime behavior verified with 100% unit test coverage using `MockBetwayGateway`.
+- [x] 6. Documentation: Architecture references and ticket logs updated.
+- [x] 7. Clean Git State: Atomically committed with conventional commit standards.
+- [x] 8. Scope Discipline: Zero scope creep, no unapproved dependencies, no route handlers or database entities introduced.
