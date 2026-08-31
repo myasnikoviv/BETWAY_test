@@ -39,9 +39,12 @@ Forensic research artifacts are preserved under [`research/betway/`](research/be
 ## Agent Infrastructure
 * [`AGENTS.md`](AGENTS.md): Repository-level agent entry point and guidelines.
 * [`agents/system-architect.md`](agents/system-architect.md): System Architect agent definition.
+* [`agents/full-stack-typescript-engineer.md`](agents/full-stack-typescript-engineer.md): Full-Stack TypeScript Engineer agent definition.
 * [`agents/flutter-engineer.md`](agents/flutter-engineer.md): Flutter Engineer agent definition.
 * [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md): System Architecture analysis skill.
+* [`skills/full-stack-typescript-engineering/SKILL.md`](skills/full-stack-typescript-engineering/SKILL.md): Full-Stack TypeScript Engineering skill.
 * [`skills/flutter-engineering/SKILL.md`](skills/flutter-engineering/SKILL.md): Flutter Engineering skill.
+
 
 
 
