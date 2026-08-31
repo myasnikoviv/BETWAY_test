@@ -32,7 +32,9 @@ Forensic research artifacts are preserved under [`research/betway/`](research/be
 
 ## Architecture & Technical Decisions
 * [`docs/architecture/01-stack-options.md`](docs/architecture/01-stack-options.md): Comparative study of technology stack and hosting options.
-* [`docs/architecture/02-adr-stack-selection.md`](docs/architecture/02-adr-stack-selection.md): **ADR-0001: Technology Stack and Deployment Topology Selection** (Next.js + Node.js API + Flutter on Vercel).
+* [`docs/architecture/ADR-0001-stack-selection.md`](docs/architecture/ADR-0001-stack-selection.md): **ADR-0001: Technology Stack and Deployment Topology Selection**.
+* [`docs/architecture/02-application-architecture.md`](docs/architecture/02-application-architecture.md): **Application Architecture Specification v1**.
+
 
 ## Agent Infrastructure
 * [`AGENTS.md`](AGENTS.md): Repository-level agent entry point and guidelines.
