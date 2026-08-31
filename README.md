@@ -26,7 +26,13 @@ All verified context, requirements, and constraints are recorded under [`docs/`]
 * [`docs/04-scope-and-boundaries.md`](docs/04-scope-and-boundaries.md): Explicit in-scope and out-of-scope boundaries.
 * [`docs/05-open-questions-and-risks.md`](docs/05-open-questions-and-risks.md): Known integration risks and unverified edge cases.
 
-Forensic scripts and response payloads are preserved under [`research/betway/`](research/betway/).
+Forensic research artifacts are preserved under [`research/betway/`](research/betway/).
+
+## Agent Infrastructure
+* [`AGENTS.md`](AGENTS.md): Repository-level agent entry point and guidelines.
+* [`agents/system-architect.md`](agents/system-architect.md): System Architect agent definition.
+* [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md): System Architecture analysis skill.
 
 ## Implementation Status
 Not started.
+
