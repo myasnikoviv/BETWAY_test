@@ -1,7 +1,7 @@
 # T012 — Implement Betway Gateway Adapter & Fixture Tests
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: DONE
 * **Branch**: `ticket/T012-implement-betway-gateway`
 * **Depends on**: T011
 
@@ -60,9 +60,48 @@ Implement the server-side Betway integration gateway (`IBetwayGateway` and `Betw
 
 * `cd web && npm run test`
 * `cd web && npm run typecheck`
+* `cd web && npm run lint`
+* `cd web && npm run build`
 
 ---
 
 ## 7. STOP CONDITION
 
 Stop immediately once `IBetwayGateway`, `BetwayHttpGateway`, and `MockBetwayGateway` are implemented, unit tests pass, and changes are committed. Do not start T013.
+
+---
+
+## 8. Code & Architecture Review Verdict
+
+* **Reviewer**: Code & Architecture Reviewer
+* **Verdict**: `APPROVED`
+* **Findings**: 0 Blocker, 0 Major, 0 Minor.
+* **Invariant Compliance**:
+  - `INV-01` (Direct Betway Prohibition): Client/domain never directly interacts with Betway; mediated strictly through `IBetwayGateway`.
+  - `INV-02` (Canonical Models / Zero DTO Leakage): Private raw DTO interfaces (`BetwayTypes.ts`) isolated within `core/gateway/`; public contract deals only with canonical domain types (`BetSelection[]`).
+  - `INV-06` (Gateway Isolation): Http and Mock gateways cleanly separated behind `IBetwayGateway` interface with deterministic offline testing.
+
+---
+
+## 9. QA / Verification Verdict
+
+* **Engineer**: QA / Verification Engineer
+* **Verdict**: `VERIFIED`
+* **Verification Evidence**:
+  - `npm run test`: 7 test suites, 52/52 tests passing (100% pass rate).
+  - `npm run typecheck`: Passed with 0 TypeScript compiler errors.
+  - `npm run lint`: Passed with 0 ESLint warnings or errors.
+  - `npm run build`: Static production compilation completed successfully with zero build errors.
+
+---
+
+## 10. Definition of Done (DoD) Sign-Off
+
+- [x] 1. Acceptance Criteria: All 5 acceptance criteria satisfied.
+- [x] 2. Quality Gates: Typecheck, test, lint, and build pass 100%.
+- [x] 3. Code Review: `APPROVED` with 0 blocker/major findings.
+- [x] 4. Invariants: `INV-01`, `INV-02`, and `INV-06` preserved.
+- [x] 5. QA Verification: Runtime behavior verified with automated test evidence and static fixtures.
+- [x] 6. Documentation: Architecture references and ticket logs updated.
+- [x] 7. Clean Git State: Atomically committed with conventional commit standards.
+- [x] 8. Scope Discipline: Zero scope creep, no unapproved dependencies, no route handlers or database entities introduced.
