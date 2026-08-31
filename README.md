@@ -30,10 +30,15 @@ All verified context, requirements, and constraints are recorded under [`docs/`]
 
 Forensic research artifacts are preserved under [`research/betway/`](research/betway/).
 
+## Architecture & Technical Decisions
+* [`docs/architecture/01-stack-options.md`](docs/architecture/01-stack-options.md): Comparative study of technology stack and hosting options.
+* [`docs/architecture/02-adr-stack-selection.md`](docs/architecture/02-adr-stack-selection.md): **ADR-0001: Technology Stack and Deployment Topology Selection** (Next.js + Node.js API + Flutter on Vercel).
+
 ## Agent Infrastructure
 * [`AGENTS.md`](AGENTS.md): Repository-level agent entry point and guidelines.
 * [`agents/system-architect.md`](agents/system-architect.md): System Architect agent definition.
 * [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md): System Architecture analysis skill.
+
 
 ## Implementation Status
 Not started.
