@@ -37,7 +37,7 @@ graph TD
 
 | Ticket ID | Title | Owner | Depends On | Short Objective |
 | :--- | :--- | :--- | :--- | :--- |
-| [`T011`](backlog/T011-bootstrap-web-and-core-domain.md) | Bootstrap Web Workspace & Core Domain | Full-Stack TypeScript Engineer | *None* | Init Next.js workspace, strict config, domain models (`BetSlip`, `BetSelection`), and `AppError`. |
+| [`T011`](active/T011-bootstrap-web-and-core-domain.md) | Bootstrap Web Workspace & Core Domain | Full-Stack TypeScript Engineer | *None* | Init Next.js workspace, strict config, domain models (`BetSlip`, `BetSelection`), and `AppError`. |
 | [`T012`](backlog/T012-implement-betway-gateway.md) | Implement Betway Gateway & Fixture Tests | Full-Stack TypeScript Engineer | `T011` | Implement `IBetwayGateway`, `BetwayHttpGateway`, timeouts, fallback routing, and mock tests. |
 | [`T013`](backlog/T013-implement-application-use-cases.md) | Implement Application Use Cases | Full-Stack TypeScript Engineer | `T012` | Implement `Resolve`, `Create`, and `Convert` composition with 100% unit test coverage. |
 | [`T014`](backlog/T014-implement-backend-api-routes.md) | Implement Backend API Route Handlers | Full-Stack TypeScript Engineer | `T013` | Implement `/api/v1/resolve`, `create`, `convert`, `health` with Zod validation and CORS. |

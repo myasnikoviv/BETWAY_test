@@ -1,7 +1,7 @@
 # T011 — Bootstrap Next.js Workspace & Core Domain Models
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T011-bootstrap-web-and-core-domain`
 * **Depends on**: None
 
