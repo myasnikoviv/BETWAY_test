@@ -61,7 +61,12 @@ export class MockBetwayGateway implements IBetwayGateway {
       throw this.resolveError ?? AppError.upstreamError('Mock upstream Betway error on resolve.');
     }
 
-    if (trimmed === 'NOT_FOUND' || trimmed === 'INVALID404' || trimmed === 'EXPIRED') {
+    if (
+      trimmed === 'NOT_FOUND' ||
+      trimmed === 'NOTFOUND' ||
+      trimmed === 'INVALID404' ||
+      trimmed === 'EXPIRED'
+    ) {
       throw AppError.notFound(`Booking code "${trimmed}" could not be found.`);
     }
 
