@@ -21,6 +21,8 @@ This repository follows a disciplined, ticket-driven engineering workflow. All a
   * [`docs/03-betway-integration-findings.md`](docs/03-betway-integration-findings.md): Verified Betway endpoint contracts.
   * [`docs/04-scope-and-boundaries.md`](docs/04-scope-and-boundaries.md): In-scope vs. out-of-scope boundaries.
   * [`docs/05-open-questions-and-risks.md`](docs/05-open-questions-and-risks.md): Known risks and unverified behaviors.
+  * [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md): Target role & company context.
+
 * **Forensic Spike Artifacts**: Located in [`research/betway/`](research/betway/)
 * **Agent Definitions**: Located in [`agents/`](agents/)
 * **Local Skills**: Located in [`skills/`](skills/)

@@ -25,6 +25,8 @@ All verified context, requirements, and constraints are recorded under [`docs/`]
 * [`docs/03-betway-integration-findings.md`](docs/03-betway-integration-findings.md): Verified endpoint contracts and payload specifications.
 * [`docs/04-scope-and-boundaries.md`](docs/04-scope-and-boundaries.md): Explicit in-scope and out-of-scope boundaries.
 * [`docs/05-open-questions-and-risks.md`](docs/05-open-questions-and-risks.md): Known integration risks and unverified edge cases.
+* [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md): Target role & company context (Stellar Logic).
+
 
 Forensic research artifacts are preserved under [`research/betway/`](research/betway/).
 
