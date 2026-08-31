@@ -1,7 +1,7 @@
 # T014 — Implement Backend API Route Handlers (/api/v1/*)
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T014-implement-backend-api-routes`
 * **Depends on**: T013
 
