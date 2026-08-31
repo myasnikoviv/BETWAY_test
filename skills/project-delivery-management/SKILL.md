@@ -37,27 +37,43 @@ When creating or refining tickets in `tickets/backlog/`:
 
 ## 3. Handoff Orchestration & State Transitions
 
-The Delivery Manager executes and monitors the handoff pipeline:
+The Delivery Manager owns the kickoff and closeout boundaries of the 5-phase multi-agent pipeline:
 
 ```mermaid
 graph TD
-    Triage["Triage & Sequence Backlog"] --> Ready["Mark Ticket READY"]
-    Ready --> Assign["Assign to Implementation Engineer (IN_PROGRESS)"]
-    Assign --> Implemented["Engineer Completes & Quality Gates Pass (IMPLEMENTED)"]
-    Implemented --> Review["Assign to Code & Architecture Reviewer (REVIEW)"]
-    Review -->|Changes Required| Rework["Return to Engineer (CHANGES_REQUIRED)"]
-    Rework --> Implemented
-    Review -->|Approved| QA["Assign to QA / Verification Engineer (QA)"]
+    Triage["Backlog Sequencing"] --> Ready["Ticket READY"]
+    Ready --> Kickoff["PM Kickoff: Branch & tickets/active/ (IN_PROGRESS)"]
+    Kickoff --> Eng["Implementation Engineer (IMPLEMENTED)"]
+    Eng --> Review["Code & Architecture Reviewer (REVIEW)"]
+    Review -->|Changes Required| Rework["Fresh Engineer Subagent (CHANGES_REQUIRED)"]
+    Rework --> Review
+    Review -->|Approved| QA["QA / Verification Engineer (QA)"]
     QA -->|Defects Found| Rework
-    QA -->|Verified| DoD["Audit Definition of Done"]
-    DoD --> Done["Mark Ticket DONE & Move to tickets/done/"]
+    QA -->|Verified| Closeout["PM Closeout: DoD Audit & Merge (DONE)"]
+    Closeout --> Done["Move to tickets/done/"]
 ```
 
-### Transition Actions:
-* **`READY` → `IN_PROGRESS`**: Move ticket file from `tickets/backlog/` to `tickets/active/`.
-* **`IMPLEMENTED` → `REVIEW`**: Verify that local quality gates passed; assign `Code & Architecture Reviewer`.
-* **`REVIEW` → `QA`**: Verify `APPROVED` or `APPROVED WITH MINOR COMMENTS` verdict; assign `QA / Verification Engineer`.
-* **`QA` → `DONE`**: Audit the 8-point Definition of Done; move ticket file from `tickets/active/` to `tickets/done/`.
+### 3.1 PM Kickoff Procedure (`READY` → `IN_PROGRESS`)
+1. Verify upstream ticket dependencies are marked `DONE` in `tickets/done/`.
+2. Verify target ticket in `tickets/backlog/` is `READY`.
+3. Verify git working tree on `main` is clean.
+4. Create and checkout ticket branch: `ticket/<Ticket-ID>-<short-name>`.
+5. Move ticket file: `git mv tickets/backlog/<Ticket-ID>.md tickets/active/<Ticket-ID>.md`.
+6. Update ticket metadata (`Status: IN_PROGRESS`) and update table row in `tickets/README.md`.
+7. Commit kickoff changes: `git commit -m "chore(tickets): activate <Ticket-ID> and switch branch to IN_PROGRESS"`.
+8. Emit structured Kickoff Report and hand off to the designated Implementation Engineer.
+
+### 3.2 PM Closeout Procedure (`QA` → `DONE`)
+1. Verify Code Reviewer verdict is `APPROVED` or `APPROVED WITH MINOR COMMENTS`.
+2. Verify QA / Verification Engineer verdict is `VERIFIED`.
+3. Conduct the formal 8-point Definition of Done audit.
+4. Move ticket file: `git mv tickets/active/<Ticket-ID>.md tickets/done/<Ticket-ID>.md`.
+5. Update ticket file with final `Status: DONE`, Review report summary, QA report summary, and DoD sign-off checkboxes.
+6. Update `tickets/README.md` (mark ticket `DONE`, update link to `done/`, mark next ticket `READY`).
+7. Commit closeout changes on ticket branch: `git commit -m "chore(delivery): close out <Ticket-ID> and mark DONE in tickets registry"`.
+8. Integrate branch into `main`: `git checkout main && git merge --no-ff -m "merge: integrate ticket/<Ticket-ID>-<name> (<Ticket-ID> - <Title>)" ticket/<Ticket-ID>-<name>`.
+9. Verify automated quality gates on `main`.
+10. Emit structured Closeout Report and STOP immediately. Never automatically begin the next ticket.
 
 ---
 

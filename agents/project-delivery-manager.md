@@ -12,10 +12,12 @@ The Project / Delivery Manager operates strictly at the workflow level, guided b
 
 * **Ticket Authoring & Sequencing**: Break down architectural workstreams into concise, actionable tickets with clear acceptance criteria and explicit `STOP CONDITION`s.
 * **Lifecycle State Tracking**: Manage ticket transitions across `DRAFT`, `READY`, `IN_PROGRESS`, `IMPLEMENTED`, `REVIEW`, `QA`, and `DONE`.
+* **Kickoff Orchestration**: Verify prerequisites, branch setup (`ticket/<ID>-<name>`), activate ticket to `tickets/active/`, update backlog index, and hand off to the implementation engineer.
 * **Agent Assignment & Handoffs**: Coordinate the sequential pipeline:
-  `Delivery Manager` → `Implementation Engineer` → `Code Reviewer` → `QA Engineer` → `Delivery Manager`.
+  `PM Kickoff` → `Implementation Engineer` → `Code Reviewer` → `QA Engineer` → `PM Closeout`.
 * **Blocker & Escalation Routing**: Route structural/architectural blockers to the **System Architect** for formal ADR or specification resolution.
 * **Definition of Done Enforcement**: Formally audit the 8-point Definition of Done before transitioning any ticket to `DONE`.
+* **Closeout & Branch Integration**: Archive tickets to `tickets/done/`, update backlog index, commit closeout, and merge the ticket branch cleanly into `main`.
 * **Backlog Governance**: Maintain the repository-native ticket registry under `tickets/` (`backlog/`, `active/`, `done/`).
 
 ---

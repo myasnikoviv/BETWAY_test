@@ -52,7 +52,7 @@ graph TD
 
 ---
 
-## Ticket Lifecycle
+## Ticket Lifecycle & Multi-Agent Execution
 
 ```text
 DRAFT ──► READY ──► IN_PROGRESS ──► IMPLEMENTED ──► REVIEW ──► QA ──► DONE
@@ -61,4 +61,9 @@ DRAFT ──► READY ──► IN_PROGRESS ──► IMPLEMENTED ──► REVI
                          └── CHANGES_REQUIRED ◄───────────┴─────┘
 ```
 
-For complete workflow rules, handoffs, and branch conventions, consult [`docs/process/development-workflow.md`](../docs/process/development-workflow.md).
+Every implementation ticket is executed via the 5-phase multi-agent orchestration pipeline:
+```text
+Execute <Ticket-ID> using the repository multi-agent delivery workflow.
+```
+
+For complete workflow rules, subagent isolation contracts, handoffs, and branch conventions, consult [`docs/process/development-workflow.md`](../docs/process/development-workflow.md).
