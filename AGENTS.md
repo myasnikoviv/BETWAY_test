@@ -36,7 +36,9 @@ The repository defines specialized agent roles for distinct development phases:
 1. **System Architect** ([`agents/system-architect.md`](agents/system-architect.md)): Responsible for system analysis, boundary definition, option formulation, trade-off evaluation, architecture decision records (ADRs), and application specifications. Uses [`skills/system-architecture/SKILL.md`](skills/system-architecture/SKILL.md).
 2. **Full-Stack TypeScript Engineer** ([`agents/full-stack-typescript-engineer.md`](agents/full-stack-typescript-engineer.md)): Responsible for implementing, testing, and verifying the complete Next.js Web application, API Route Handlers, core domain use cases, and Betway integration adapter (`web/`). Uses [`skills/full-stack-typescript-engineering/SKILL.md`](skills/full-stack-typescript-engineering/SKILL.md).
 3. **Flutter Engineer** ([`agents/flutter-engineer.md`](agents/flutter-engineer.md)): Responsible for implementing, testing, and packaging the Flutter single-screen mobile client (`mobile/`) strictly adhering to the approved system architecture. Uses [`skills/flutter-engineering/SKILL.md`](skills/flutter-engineering/SKILL.md).
-4. **QA / Verification Engineer** ([`agents/qa-verification-engineer.md`](agents/qa-verification-engineer.md)): Responsible for independent verification of deliverables against acceptance criteria, quality gates, and architectural invariants. Uses [`skills/qa-verification/SKILL.md`](skills/qa-verification/SKILL.md).
+4. **Code & Architecture Reviewer** ([`agents/code-architecture-reviewer.md`](agents/code-architecture-reviewer.md)): Responsible for independent structural review, SOLID boundary enforcement, and architectural invariant compliance across all code changes. Uses [`skills/code-architecture-review/SKILL.md`](skills/code-architecture-review/SKILL.md).
+5. **QA / Verification Engineer** ([`agents/qa-verification-engineer.md`](agents/qa-verification-engineer.md)): Responsible for independent verification of deliverables against acceptance criteria, quality gates, and runtime behavior. Uses [`skills/qa-verification/SKILL.md`](skills/qa-verification/SKILL.md).
+
 
 
 
