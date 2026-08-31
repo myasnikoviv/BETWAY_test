@@ -6,13 +6,53 @@ This directory contains the repository-native ticket registry for the Betway Nig
 
 ## Directory Structure
 
-* **`backlog/`**: Tickets in `DRAFT` or `READY` state awaiting kickoff.
+* **`backlog/`**: Tickets in `READY` or `DRAFT` state awaiting kickoff.
 * **`active/`**: Tickets currently in `IN_PROGRESS`, `IMPLEMENTED`, `REVIEW`, `QA`, or `CHANGES_REQUIRED`.
 * **`done/`**: Completed tickets that have satisfied all criteria in the [Definition of Done](../docs/process/development-workflow.md#5-definition-of-done-dod).
 
 ---
 
-## Ticket Workflow & Lifecycle
+## Initial Implementation Backlog Index
+
+```mermaid
+graph TD
+    T011["T011: Bootstrap Web & Domain"] --> T012["T012: Betway Gateway Adapter"]
+    T012 --> T013["T013: Core Use Cases"]
+    T013 --> T014["T014: Backend Route Handlers"]
+
+    subgraph "Parallel Workstreams"
+        T014 --> T015["T015: Web Input & Slip View"]
+        T015 --> T016["T016: Web Convert & Verification"]
+
+        T014 --> T017["T017: Flutter Gateway & DI"]
+        T017 --> T018["T018: Flutter Cubit & State"]
+        T018 --> T019["T019: Flutter Slip View Screen"]
+    end
+
+    T016 --> T020["T020: Vercel Deployment"]
+    T019 --> T021["T021: Android APK & Firebase"]
+    T020 --> T022["T022: Solution Summary & Loom Prep"]
+    T021 --> T022
+```
+
+| Ticket ID | Title | Owner | Depends On | Short Objective |
+| :--- | :--- | :--- | :--- | :--- |
+| [`T011`](backlog/T011-bootstrap-web-and-core-domain.md) | Bootstrap Web Workspace & Core Domain | Full-Stack TypeScript Engineer | *None* | Init Next.js workspace, strict config, domain models (`BetSlip`, `BetSelection`), and `AppError`. |
+| [`T012`](backlog/T012-implement-betway-gateway.md) | Implement Betway Gateway & Fixture Tests | Full-Stack TypeScript Engineer | `T011` | Implement `IBetwayGateway`, `BetwayHttpGateway`, timeouts, fallback routing, and mock tests. |
+| [`T013`](backlog/T013-implement-application-use-cases.md) | Implement Application Use Cases | Full-Stack TypeScript Engineer | `T012` | Implement `Resolve`, `Create`, and `Convert` composition with 100% unit test coverage. |
+| [`T014`](backlog/T014-implement-backend-api-routes.md) | Implement Backend API Route Handlers | Full-Stack TypeScript Engineer | `T013` | Implement `/api/v1/resolve`, `create`, `convert`, `health` with Zod validation and CORS. |
+| [`T015`](backlog/T015-implement-web-input-and-slip-view.md) | Implement Web UI: Input & Slip View | Full-Stack TypeScript Engineer | `T014` | Build Next.js React UI components for entering codes, decoding, and rendering `BetSlipCard`. |
+| [`T016`](backlog/T016-implement-web-conversion-and-verification.md) | Implement Web UI: Convert & Verification | Full-Stack TypeScript Engineer | `T015` | Build 1-click Convert action bar, code comparison badges, and Loom verification modal. |
+| [`T017`](backlog/T017-bootstrap-flutter-gateway-and-di.md) | Bootstrap Flutter Gateway & DI | Flutter Engineer | `T014` | Init Flutter app, configure Dio + Retrofit, define `SlipGateway`, and wire `GetIt` DI. |
+| [`T018`](backlog/T018-implement-flutter-cubit-and-state.md) | Implement Flutter Cubit & State | Flutter Engineer | `T017` | Implement `SlipCubit` and `SlipState` with `bloc_test` unit coverage against mocked gateway. |
+| [`T019`](backlog/T019-implement-flutter-slip-viewer-screen.md) | Implement Flutter Slip Viewer Screen | Flutter Engineer | `T018` | Build `SlipViewerScreen` and decomposed widgets with widget tests covering all states. |
+| [`T020`](backlog/T020-configure-vercel-deployment.md) | Configure Vercel Public Deployment | Full-Stack TypeScript Engineer | `T016` | Deploy `web/` to Vercel Hobby Tier and verify public live HTTPS endpoints. |
+| [`T021`](backlog/T021-build-android-apk-and-firebase-distribution.md) | Build Android APK & Firebase Distribution | Flutter Engineer | `T019`, `T020` | Build release APK, setup Firebase App Distribution, and author `docs/07-ios-ipa-distribution.md`. |
+| [`T022`](backlog/T022-author-solution-summary-and-loom-prep.md) | Author Solution Summary & Loom Prep | Project / Delivery Manager | `T020`, `T021` | Author `docs/08-solution-summary.md` and `docs/09-loom-walkthrough-outline.md`, and conduct final audit. |
+
+---
+
+## Ticket Lifecycle
 
 ```text
 DRAFT ──► READY ──► IN_PROGRESS ──► IMPLEMENTED ──► REVIEW ──► QA ──► DONE
