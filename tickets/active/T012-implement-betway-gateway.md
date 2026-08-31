@@ -1,7 +1,7 @@
 # T012 — Implement Betway Gateway Adapter & Fixture Tests
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T012-implement-betway-gateway`
 * **Depends on**: T011
 
