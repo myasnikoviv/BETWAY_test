@@ -1,7 +1,7 @@
 # T020 — Configure Vercel Public Web Deployment
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T020-configure-vercel-deployment`
 * **Depends on**: T016
 
