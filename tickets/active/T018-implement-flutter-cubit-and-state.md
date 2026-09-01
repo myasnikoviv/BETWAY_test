@@ -1,7 +1,7 @@
 # T018 — Implement Flutter Presentation State (SlipCubit) & Tests
 
 * **Owner**: Flutter Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T018-implement-flutter-cubit-and-state`
 * **Depends on**: T017
 
