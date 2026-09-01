@@ -89,7 +89,7 @@ adb devices
 adb install -r build/app/outputs/flutter-apk/app-release.apk
 
 # 3. Launch application directly
-adb shell am start -n com.example.mobile/.MainActivity
+adb shell am start -n com.stellarlogic.betway.mobile/.MainActivity
 ```
 
 ---
