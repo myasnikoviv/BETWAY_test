@@ -8,9 +8,16 @@ import type {
 } from './BetwayTypes';
 import type { IBetwayGateway } from './IBetwayGateway';
 
-export const DEFAULT_PRIMARY_BASE_URL = 'https://www.betway.com.ng/appsynapse/bet-api-sr02';
-export const DEFAULT_FALLBACK_BASE_URL = 'https://www.betway.com.ng/appsynapse/bet-api-sr';
-export const DEFAULT_TIMEOUT_MS = 8000;
+export const DEFAULT_PRIMARY_BASE_URL =
+  (typeof process !== 'undefined' && process.env?.BETWAY_BASE_URL) ||
+  'https://www.betway.com.ng/appsynapse/bet-api-sr02';
+export const DEFAULT_FALLBACK_BASE_URL =
+  (typeof process !== 'undefined' && process.env?.BETWAY_FALLBACK_BASE_URL) ||
+  'https://www.betway.com.ng/appsynapse/bet-api-sr';
+export const DEFAULT_TIMEOUT_MS =
+  typeof process !== 'undefined' && process.env?.BETWAY_TIMEOUT_MS
+    ? parseInt(process.env.BETWAY_TIMEOUT_MS, 10)
+    : 8000;
 
 export const DEFAULT_HEADERS: Record<string, string> = {
   'Content-Type': 'application/json',
