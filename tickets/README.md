@@ -47,7 +47,7 @@ graph TD
 | [`T018`](done/T018-implement-flutter-cubit-and-state.md) | Implement Flutter Cubit & State | `DONE` | Flutter Engineer | `T017` | Implement `SlipCubit` and `SlipState` with `bloc_test` unit coverage against mocked gateway. |
 | [`T019`](done/T019-implement-flutter-slip-viewer-screen.md) | Implement Flutter Slip Viewer Screen | `DONE` | Flutter Engineer | `T018` | Build `SlipViewerScreen` and decomposed widgets with widget tests covering all states. |
 | [`T020`](done/T020-configure-vercel-deployment.md) | Configure Vercel Public Deployment | `DONE` | Full-Stack TypeScript Engineer | `T016` | Deploy `web/` to Vercel Hobby Tier and verify public live HTTPS endpoints. |
-| [`T021`](done/T021-build-android-apk-and-firebase-distribution.md) | Build Android APK & Firebase Distribution | `DONE` | Flutter Engineer | `T019`, `T020` | Build release APK, setup Firebase App Distribution, and author `docs/07-ios-ipa-distribution.md`. |
+| [`T021`](done/T021-build-android-apk-and-firebase-distribution.md) | Build Android APK & Complete Firebase App Distribution Upload | `DONE` | Flutter Engineer | `T019`, `T020` | Build release APK, upload to Firebase App Distribution, and author iOS distribution note. |
 | [`T022`](backlog/T022-author-solution-summary-and-loom-prep.md) | Author Solution Summary & Loom Prep | `READY` | Project / Delivery Manager | `T020`, `T021` | Author `docs/08-solution-summary.md` and `docs/09-loom-walkthrough-outline.md`, and conduct final audit. |
 
 ---
