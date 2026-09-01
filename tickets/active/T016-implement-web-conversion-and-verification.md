@@ -1,7 +1,7 @@
 # T016 — Implement Web UI — Conversion Panel & Verification Modal
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: IN_PROGRESS
+* **Status**: IMPLEMENTED
 * **Branch**: `ticket/T016-implement-web-conversion-and-verification`
 * **Depends on**: T015
 

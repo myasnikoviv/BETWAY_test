@@ -1,4 +1,5 @@
 import type { BetSlip } from '../core/domain/BetSlip';
+import type { ConvertResult } from '../core/domain/ConvertResult';
 import type { ApiResponseEnvelope } from './api-response';
 
 /**
@@ -131,8 +132,105 @@ export async function resolveBookingCode(
 }
 
 /**
+ * Converts an existing Betway booking code into a freshly generated booking code
+ * via POST /api/v1/convert.
+ *
+ * @param bookingCode - Source Betway booking code string (e.g. "BW6D7ABCFB")
+ * @param options - Optional request parameters (baseUrl, signal, fetchFn)
+ * @returns Promise resolving to canonical ConvertResult domain model
+ * @throws ApiClientError if the API returns an error or if network/parsing fails
+ */
+export async function convertBookingCode(
+  bookingCode: string,
+  options: ResolveOptions = {}
+): Promise<ConvertResult> {
+  const { baseUrl = '', signal, fetchFn = fetch } = options;
+  const cleanCode = bookingCode.trim().toUpperCase();
+
+  if (!cleanCode) {
+    throw new ApiClientError(
+      'Booking code cannot be empty.',
+      'INVALID_INPUT',
+      400
+    );
+  }
+
+  const endpoint = `${baseUrl}/api/v1/convert`;
+
+  let response: Response;
+  try {
+    response = await fetchFn(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ bookingCode: cleanCode }),
+      signal,
+    });
+  } catch (err: unknown) {
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      throw err;
+    }
+    const message =
+      err instanceof Error ? err.message : 'Network request failed';
+    throw new ApiClientError(
+      `Failed to communicate with server: ${message}`,
+      'NETWORK_ERROR',
+      0
+    );
+  }
+
+  let payload: ApiResponseEnvelope<ConvertResult> | unknown;
+  try {
+    payload = await response.json();
+  } catch {
+    throw new ApiClientError(
+      `Invalid JSON response from server (HTTP ${response.status})`,
+      'INVALID_RESPONSE',
+      response.status
+    );
+  }
+
+  if (
+    response.ok &&
+    payload &&
+    typeof payload === 'object' &&
+    'success' in payload &&
+    (payload as ApiResponseEnvelope<ConvertResult>).success === true
+  ) {
+    return (payload as { success: true; data: ConvertResult }).data;
+  }
+
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    'success' in payload &&
+    (payload as ApiResponseEnvelope<ConvertResult>).success === false
+  ) {
+    const errorPayload = payload as {
+      success: false;
+      error: { code: string; message: string; details?: unknown };
+    };
+    throw new ApiClientError(
+      errorPayload.error?.message || 'Server returned an error',
+      errorPayload.error?.code || 'SERVER_ERROR',
+      response.status,
+      errorPayload.error?.details
+    );
+  }
+
+  throw new ApiClientError(
+    `Unexpected server response (HTTP ${response.status})`,
+    'UNEXPECTED_ERROR',
+    response.status
+  );
+}
+
+/**
  * Standard API client helper object.
  */
 export const apiClient = {
   resolve: resolveBookingCode,
+  convert: convertBookingCode,
 };
