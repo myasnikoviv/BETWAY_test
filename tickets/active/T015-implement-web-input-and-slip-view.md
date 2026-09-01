@@ -1,7 +1,7 @@
 # T015 — Implement Web UI — Input Form & BetSlip Display
 
 * **Owner**: Full-Stack TypeScript Engineer
-* **Status**: IN_PROGRESS
+* **Status**: IMPLEMENTED
 * **Branch**: `ticket/T015-implement-web-input-and-slip-view`
 * **Depends on**: T014
 
