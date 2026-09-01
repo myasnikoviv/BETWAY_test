@@ -1,7 +1,7 @@
 # T019 — Implement Flutter Slip Viewer Screen & Widget Tests
 
 * **Owner**: Flutter Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T019-implement-flutter-slip-viewer-screen`
 * **Depends on**: T018
 
