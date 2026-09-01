@@ -4,6 +4,7 @@ import '../config/app_config.dart';
 import '../domain/gateways/slip_gateway.dart';
 import '../infrastructure/api/slip_rest_client.dart';
 import '../infrastructure/gateways/slip_remote_gateway.dart';
+import '../presentation/cubit/slip_cubit.dart';
 
 /// Global service locator instance.
 final GetIt getIt = GetIt.instance;
@@ -13,12 +14,13 @@ GetIt get sl => getIt;
 
 /// Configures and registers all application dependencies in the GetIt composition root.
 ///
-/// Supports optional test overrides for [baseUrl], [dio], [gateway], and [config].
+/// Supports optional test overrides for [baseUrl], [dio], [gateway], [config], and [cubitFactory].
 Future<void> configureDependencies({
   String? baseUrl,
   Dio? dio,
   SlipGateway? gateway,
   AppConfig? config,
+  SlipCubit Function()? cubitFactory,
 }) async {
   // 1. AppConfig Registration
   final appConfig =
@@ -64,6 +66,15 @@ Future<void> configureDependencies({
       getIt.registerLazySingleton<SlipGateway>(
         () => SlipRemoteGateway(getIt<SlipRestClient>()),
       );
+    }
+  }
+
+  // 5. Presentation Layer / Cubit Registration
+  if (!getIt.isRegistered<SlipCubit>()) {
+    if (cubitFactory != null) {
+      getIt.registerFactory<SlipCubit>(cubitFactory);
+    } else {
+      getIt.registerFactory<SlipCubit>(() => SlipCubit(getIt<SlipGateway>()));
     }
   }
 }
