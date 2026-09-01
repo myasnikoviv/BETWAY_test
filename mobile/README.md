@@ -98,25 +98,33 @@ adb shell am start -n com.stellarlogic.betway.mobile/.MainActivity
 
 Firebase App Distribution provides rapid over-the-air distribution of test builds to QA engineers and stakeholders.
 
-### 5.1 CLI Upload & Distribution
-Ensure the Firebase CLI is installed and authenticated:
+### 5.1 Project & App Configuration
+* **Firebase Project ID**: `flutter-dev-395b5`
+* **Firebase Project Number**: `514619263873`
+* **Firebase Android App ID**: `1:514619263873:android:01168bcb630c86901bf680`
+* **Application Package Name**: `com.stellarlogic.betway.mobile`
+* **Current Release**: `1.0.0 (1)` (Release ID: `4in8io63t25g8`)
+
+### 5.2 CLI Upload & Distribution Command
+Ensure the Firebase CLI is installed and authenticated (`firebase login`), then execute:
 
 ```bash
-# 1. Install & Login
-npm install -g firebase-tools
-firebase login
-
-# 2. Distribute APK to tester groups
 firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
-  --app <FIREBASE_APP_ID> \
-  --groups "qa-testers, stakeholders" \
-  --release-notes "Release candidate v1.0.0 pointing to live Vercel backend"
+  --app 1:514619263873:android:01168bcb630c86901bf680 \
+  --project flutter-dev-395b5 \
+  --release-notes "Release candidate v1.0.0 pointing to live Vercel backend" \
+  --testers "myasnikov.iv@gmail.com"
 ```
 
-### 5.2 Tester Onboarding Flow
-1. **Invitation**: Testers receive an email invite from Firebase App Distribution.
-2. **App Tester Client**: Testers accept the invite and install the **Firebase App Tester** app on their Android device.
-3. **One-Tap Updates**: Subsequent release builds uploaded via CLI/CI are delivered with automatic in-app update notifications.
+### 5.3 Tester Onboarding & Access Links
+1. **Tester Invitation & Download Link**:
+   * [Firebase App Distribution Tester Portal](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-tools)
+2. **Firebase Console Release View**:
+   * [Firebase Console Release Dashboard](https://console.firebase.google.com/project/flutter-dev-395b5/appdistribution/app/android:com.stellarlogic.betway.mobile/releases/4in8io63t25g8?utm_source=firebase-tools)
+3. **Tester Onboarding Flow**:
+   * Testers receive an email invitation from Firebase App Distribution (`myasnikov.iv@gmail.com` invited).
+   * Testers accept the invite and install the **Firebase App Tester** app on their Android device.
+   * Testers can download and install `app-release.apk` with automatic in-app update notifications for future releases.
 
 ---
 

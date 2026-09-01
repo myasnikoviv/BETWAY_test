@@ -1,7 +1,7 @@
 # T021 — Build Android APK & Complete Firebase App Distribution Upload
 
 * **Owner**: Flutter Engineer
-* **Status**: IN_PROGRESS
+* **Status**: IMPLEMENTED
 * **Branch**: `ticket/T021-firebase-app-distribution-upload`
 * **Depends on**: T019, T020
 
