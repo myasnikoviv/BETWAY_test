@@ -2,7 +2,7 @@
 class AppConfig {
   /// Default production API base URL.
   static const String defaultProductionUrl =
-      'https://betway-assessment.vercel.app';
+      'https://betway-nigeria-booking-code.vercel.app';
 
   /// Default Android emulator host loopback URL for local backend testing.
   static const String defaultAndroidEmulatorUrl = 'http://10.0.2.2:3000';
