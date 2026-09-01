@@ -1,7 +1,7 @@
 # T017 — Bootstrap Flutter Project, Domain Gateway & DI
 
 * **Owner**: Flutter Engineer
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T017-bootstrap-flutter-gateway-and-di`
 * **Depends on**: T014
 
