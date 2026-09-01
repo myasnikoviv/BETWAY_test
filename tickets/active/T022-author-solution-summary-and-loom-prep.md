@@ -1,7 +1,7 @@
 # T022 — Author Solution Summary & Loom Walkthrough Outline
 
 * **Owner**: Project / Delivery Manager
-* **Status**: READY
+* **Status**: IN_PROGRESS
 * **Branch**: `ticket/T022-author-solution-summary-and-loom-prep`
 * **Depends on**: T020, T021
 
