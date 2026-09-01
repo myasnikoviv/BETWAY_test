@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Betway Nigeria Booking Code Platform — Web Application & Backend API
 
-## Getting Started
+Full-Stack Next.js application (App Router, React 19, TypeScript, Tailwind CSS) providing an interactive Web UI and unified REST API (`/api/v1/*`) for decoding, generating, and converting Betway Nigeria booking codes.
 
-First, run the development server:
+---
+
+## 1. Public Deployment Topology (Vercel)
+
+* **Deployment Target**: Vercel (Hobby Tier / Edge CDN + Node.js 20+ Serverless Compute)
+* **Framework**: Next.js 15 (App Router)
+* **Root Directory**: `web` (or root with `vercel.json` orchestration)
+* **Production Base URL**: `https://betway-nigeria-booking-code.vercel.app`
+* **API Gateway Base**: `https://betway-nigeria-booking-code.vercel.app/api/v1`
+
+---
+
+## 2. API Endpoints Contract (`/api/v1/*`)
+
+All API endpoints enforce standardized JSON response envelopes and include permissive CORS headers (`Access-Control-Allow-Origin: *`, `Access-Control-Allow-Methods: GET, POST, OPTIONS`) for web and Flutter mobile client consumption (`INV-03`).
+
+| Method | Endpoint | Description | Request Body | Success Response |
+| :--- | :--- | :--- | :--- | :--- |
+| `GET` | `/api/v1/health` | Service uptime and health check | N/A | `{"success": true, "data": {"status": "healthy", ...}}` |
+| `POST` | `/api/v1/resolve` | Decode booking code into canonical `BetSlip` | `{"bookingCode": "BW6D7ABCFB"}` | `{"success": true, "data": { "bookingCode", "selections", "totalOdds", ... }}` |
+| `POST` | `/api/v1/create` | Generate Betway booking code from structured selections | `{"selections": [...], "isSingleBet": false}` | `{"success": true, "data": { "bookingCode": "..." }}` |
+| `POST` | `/api/v1/convert` | Ingest code, decode slip, and generate identical new booking code | `{"bookingCode": "BW6D7ABCFB"}` | `{"success": true, "data": { "sourceBookingCode", "newBookingCode", "slip" }}` |
+| `OPTIONS` | `/api/v1/*` | CORS preflight handler | N/A | `204 No Content` |
+
+---
+
+## 3. Environment Configuration
+
+Configuration defaults are managed in `src/core/gateway/BetwayHttpGateway.ts` with optional overrides via environment variables (documented in `.env.example`):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Primary Betway Nigeria Gateway Endpoint (Default)
+BETWAY_BASE_URL=https://www.betway.com.ng/appsynapse/bet-api-sr02
+
+# Fallback Betway Gateway Endpoint (Failover Retry)
+BETWAY_FALLBACK_BASE_URL=https://www.betway.com.ng/appsynapse/bet-api-sr
+
+# Gateway Outbound HTTP Timeout in Milliseconds (Default: 8000)
+BETWAY_TIMEOUT_MS=8000
+
+# Node Environment
+NODE_ENV=production
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 4. Vercel Deployment Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Method A: Git Continuous Deployment (Recommended)
+1. Import this repository into Vercel Dashboard.
+2. Set **Root Directory** to `web` (or leave default if using root `vercel.json`).
+3. Select **Framework Preset**: Next.js.
+4. (Optional) Configure environment variables from `.env.example` in Project Settings.
+5. Click **Deploy**. Vercel automatically runs `npm run build` and provisions serverless functions for all `/api/v1/*` route handlers.
 
-## Learn More
+### Method B: Vercel CLI Deployment
+```bash
+cd web
+npx vercel login
+npx vercel deploy --prod --yes
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 5. Local Development & Quality Gates
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Install dependencies
+npm install
 
-## Deploy on Vercel
+# Start local development server
+npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Run ESLint check
+npm run lint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Run TypeScript typecheck
+npm run typecheck
+
+# Run Vitest test suite (unit, integration, UI tests)
+npm run test
+
+# Build production Next.js bundle
+npm run build
+
+# Run production server locally
+npm run start
+```
+
+---
+
+## 6. Architectural Boundary Enforcement
+
+* **INV-01**: External Betway endpoints are never called client-side in browser JS. All calls originate in server-side Route Handlers via `BetwayHttpGateway`.
+* **INV-02**: Raw Betway DTOs are sanitized and normalized into canonical domain models (`BetSlip`, `BetSelection`).
+* **INV-03**: Web and Flutter clients consume identical `/api/v1/*` REST contracts.
+* **INV-04**: 100% stateless execution with zero database dependencies.
+* **INV-05**: Convert operation composes `ResolveBookingCodeUseCase` and `CreateBookingCodeUseCase`.
+* **INV-06**: `IBetwayGateway` interface enables deterministic fixture-based testing.
