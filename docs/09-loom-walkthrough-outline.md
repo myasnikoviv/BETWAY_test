@@ -2,6 +2,7 @@
 
 **Target Audience**: Stellar Logic Hiring Team & Technical Leadership  
 **Target Role**: Product-Minded Full-Stack Engineer (Node.js / React / Flutter)  
+**Recorded Loom Walkthrough**: [https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2](https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2)  
 **Total Target Video Duration**: **4:30 – 5:00 minutes** (Strict assessment time limit)  
 **Presenter Objective**: Demonstrate full-stack ownership, explain architectural strategy and the trickiest decision, perform live verification on `betway.com.ng`, and showcase the Flutter mobile client and Firebase release.
 

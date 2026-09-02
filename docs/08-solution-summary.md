@@ -4,8 +4,9 @@
 **Target Role**: Product-Minded Full-Stack Engineer (Node.js / React / Flutter)  
 **Company Context**: [Stellar Logic](https://www.stellar-logic.com/)  
 **Primary Repository**: [myasnikoviv/BETWAY_test](https://github.com/myasnikoviv/BETWAY_test)  
-**Public Web Deployment**: [https://betway-nigeria-booking-code.vercel.app](https://betway-nigeria-booking-code.vercel.app)  
-**Mobile Distribution**: [Firebase App Distribution Tester Portal](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-tools)  
+**Live Web Deployment**: [https://betway-nigeria-booking-code.vercel.app](https://betway-nigeria-booking-code.vercel.app)  
+**Video Walkthrough (Loom)**: [https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2](https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2)  
+**Mobile Distribution**: [Firebase App Distribution Tester Portal](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-console) | [Direct APK (`release/app-release.apk`)](../release/app-release.apk)  
 
 ---
 

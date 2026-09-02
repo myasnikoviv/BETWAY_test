@@ -1,13 +1,15 @@
 # Betway Nigeria Booking Code Platform
 
 [![Production Deployment](https://img.shields.io/badge/Vercel-Deployed-brightgreen?logo=vercel)](https://betway-nigeria-booking-code.vercel.app)
-[![Android Distribution](https://img.shields.io/badge/Firebase_App_Distribution-Active-orange?logo=firebase)](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-tools)
+[![Loom Walkthrough](https://img.shields.io/badge/Loom_Video-Watch_Walkthrough-blueviolet?logo=loom)](https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2)
+[![Android Distribution](https://img.shields.io/badge/Firebase_App_Distribution-Active-orange?logo=firebase)](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-console)
+[![Direct APK Download](https://img.shields.io/badge/Android_APK-Direct_Download-green?logo=android)](release/app-release.apk)
 [![Tests Passing](https://img.shields.io/badge/Automated_Tests-296_Passed-blue?logo=vitest)](tests)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20Hexagonal-purple)](docs/architecture/02-application-architecture.md)
 
 A production-grade, full-stack web and mobile platform integrating with **Betway Nigeria** (`betway.com.ng`) to decode, generate, and convert sports betting booking codes statelessly across Web and Mobile clients.
 
-Developed for the **Stellar Logic** Product-Minded Full-Stack Engineer technical assessment ([`docs/00-assessment-brief.md`](docs/00-assessment-brief.md), [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md)). Given an open brief with full technology freedom, the solution was architected with strategic choices: a unified Next.js 15 Backend-For-Frontend on Vercel, a Clean Architecture Flutter client with BLoC/Cubit, and a 100% stateless conversion design eliminating unnecessary database overhead.
+Developed for the **Stellar Logic** Product-Minded Full-Stack Engineer technical assessment ([`docs/00-assessment-brief.md`](docs/00-assessment-brief.md), [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md)). For a concise executive checklist of all deliverables, see [`DELIVERY.md`](DELIVERY.md).
 
 ---
 
@@ -18,12 +20,12 @@ All 8 mandatory deliverables specified in [`docs/00-assessment-brief.md`](docs/0
 | # | Required Deliverable | Status | Primary Reference / Artifact Link |
 | :-: | :--- | :---: | :--- |
 | 1 | **Live Public URL** | **LIVE** | 🌐 [https://betway-nigeria-booking-code.vercel.app](https://betway-nigeria-booking-code.vercel.app) |
-| 2 | **Git Repository with Full Commit History** | **COMPLETE** | 🐙 Git history organized into 11 ticket branches merged cleanly into `main` |
+| 2 | **Git Repository with Full Commit History** | **COMPLETE** | 🐙 [https://github.com/myasnikoviv/BETWAY_test](https://github.com/myasnikoviv/BETWAY_test) *(80+ granular commits across 12 tickets)* |
 | 3 | **Complete Source Code & Documentation** | **COMPLETE** | 📚 [`docs/`](docs/) (Requirements, Findings, Invariants, ADRs, Workflows) |
-| 4 | **Mermaid Architecture Diagrams** | **COMPLETE** | 📐 [`docs/architecture/02-application-architecture.md`](docs/architecture/02-application-architecture.md) |
-| 5 | **Flutter APK via Firebase App Distribution** | **DISTRIBUTED** | 📲 [Firebase App Tester Portal (Release 4in8io63t25g8)](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-tools) |
+| 4 | **Mermaid Architecture Diagrams** | **COMPLETE** | 📐 [`docs/architecture/02-application-architecture.md`](docs/architecture/02-application-architecture.md) & [`docs/08-solution-summary.md`](docs/08-solution-summary.md) |
+| 5 | **Flutter APK via Firebase App Distribution** | **DISTRIBUTED** | 📲 [Firebase App Tester Portal](https://appdistribution.firebase.google.com/testerapps/1:514619263873:android:01168bcb630c86901bf680/releases/4in8io63t25g8?utm_source=firebase-console)<br>📦 [Direct APK Download (`release/app-release.apk`)](release/app-release.apk) |
 | 6 | **iOS IPA Distribution Pathway Note** | **COMPLETE** | 🍏 [`docs/07-ios-ipa-distribution.md`](docs/07-ios-ipa-distribution.md) |
-| 7 | **5-Minute Loom Walkthrough Script** | **COMPLETE** | 🎥 [`docs/09-loom-walkthrough-outline.md`](docs/09-loom-walkthrough-outline.md) |
+| 7 | **5-Minute Loom Walkthrough Video** | **RECORDED** | 🎥 [Watch Loom Walkthrough (5:00 min)](https://www.loom.com/share/ebed64ee0395485aa5a9624fcd4b73b2)<br>📝 [Presenter Script & Outline](docs/09-loom-walkthrough-outline.md) |
 | 8 | **Solution Summary & Engineering Note** | **COMPLETE** | 📝 [`docs/08-solution-summary.md`](docs/08-solution-summary.md) |
 
 ---
