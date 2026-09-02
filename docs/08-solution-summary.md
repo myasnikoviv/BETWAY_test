@@ -9,13 +9,21 @@
 
 ---
 
-## 1. Executive Summary & Assessment Alignment
+## 1. Executive Summary: Brief Requirements vs. Strategic Architectural Choices
 
-This document provides the complete, evidence-based technical explanation of the **Betway Nigeria Booking Code Platform**, developed for the **Stellar Logic** Product-Minded Full-Stack Engineer assessment ([`docs/00-assessment-brief.md`](00-assessment-brief.md), [`docs/06-target-role-and-context.md`](06-target-role-and-context.md)).
+This document provides the complete, evidence-based technical explanation of the **Betway Nigeria Booking Code Platform**, developed for the **Stellar Logic** Product-Minded Full-Stack Engineer assessment ([`00-assessment-brief.md`](00-assessment-brief.md), [`06-target-role-and-context.md`](06-target-role-and-context.md)).
 
-The system solves the end-to-end problem of ingesting, decoding, generating, and converting sports betting booking codes from **Betway Nigeria** (`betway.com.ng`) without requiring private API tokens, browser automation overhead, or server-side database persistence.
+### 1.1 Assessment Brief Scope vs. Strategic Engineering Choices
 
-### High-Level Capabilities Matrix
+| Assessment Brief Dimension | What the Brief Required (`docs/00-assessment-brief.md`) | Strategic Engineering Choices & Architectural Decision |
+| :--- | :--- | :--- |
+| **Operator Integration** | Work with Betway Nigeria (`betway.com.ng`) to Resolve, Create, and Convert booking codes, and verify on the live site. | Reverse-engineered public anonymous REST endpoints (`FindBookABet`, `BookABet`), isolating them behind `IBetwayGateway` with auto-failover and normalization. |
+| **Web Application & Backend** | Deliver a UI and backend on a public URL. Tech stack, frameworks, and architecture left open to candidate. | Chose **Next.js 15 (React 19 / TypeScript / App Router)** as a unified Backend-For-Frontend (BFF) deployed to **Vercel** serverless edge for instant cold starts and zero infrastructure overhead. |
+| **Data Layer (Database)** | *"The solution must include a UI, backend, and a database if required"*. | **100% Stateless Architecture**: Consciously rejected a database (`INV-04`). Sports betting odds are volatile; caching booking codes creates stale data risks. Pure composition of Resolve + Create guarantees live freshness without database cost. |
+| **Mobile Client** | Single-screen Flutter view of the resolved slip, APK via Firebase App Distribution, and iOS IPA pathway note. | Chose **Clean Architecture with BLoC/Cubit (`SlipCubit`)**, abstract `SlipGateway`, and GetIt DI. Mobile consumes the exact same `/api/v1/resolve` contract as Web with 100% offline mock testability. |
+| **Quality & Verification** | 5-minute Loom walkthrough explaining architecture and trickiest technical decision; Git commit history. | Enforced strict 8-point Definition of Done across 11 tickets (`tickets/done/`), 6 non-negotiable invariants (`INV-01`–`INV-06`), and **296 automated unit/integration/widget tests** (100% pass). |
+
+### 1.2 High-Level Capabilities Matrix
 
 ```mermaid
 graph LR
@@ -118,7 +126,7 @@ graph TD
 
 ## 4. Reverse-Engineered Betway Nigeria Contracts
 
-Betway Nigeria (`betway.com.ng`) exposes anonymous REST endpoints backing their public bet-slip sharing feature. Through forensic network analysis ([`docs/03-betway-integration-findings.md`](03-betway-integration-findings.md)), two core primitive endpoints were identified and validated.
+Betway Nigeria (`betway.com.ng`) exposes anonymous REST endpoints backing their public bet-slip sharing feature. Through forensic network analysis ([`03-betway-integration-findings.md`](03-betway-integration-findings.md)), two core primitive endpoints were identified and validated.
 
 ### 4.1 Resolve Endpoint (`FindBookABet`)
 * **Endpoint**: `POST https://www.betway.com.ng/appsynapse/bet-api-sr02/v2/Betting/FindBookABet`
@@ -318,15 +326,16 @@ To maintain absolute transparency during technical review, the following table s
 | Capability / Component | Evidence Status | Verification Evidence & Location |
 | :--- | :--- | :--- |
 | **Betway Nigeria Reverse Engineering** | `MANUALLY VERIFIED` | Live HTTP scripts in `research/betway/` (`resolve.sh`, `create.sh`, `roundtrip_test.py`). Confirmed 100% round-trip leg fidelity. |
-| **Backend REST API (`/api/v1/*`)** | `DEPLOYED` | Operational on Vercel at `https://betway-nigeria-booking-code.vercel.app/api/v1/health`, `/resolve`, `/create`, `/convert`. |
-| **Core Domain & Use Cases** | `TESTED` | 100% unit test coverage in `web/tests/core/` (70 domain & use-case tests passing). |
-| **Stateless 1-Click Convert** | `DEPLOYED` | Verified in browser UI and via `POST /api/v1/convert` on production deployment. |
-| **Interactive Web UI** | `DEPLOYED` | Live React 19 single-page UI with sample codes, slip cards, conversion badges, and verification modal. |
-| **Flutter Mobile Architecture** | `TESTED` | 81 tests covering Models, Gateways, `SlipCubit`, and Widget interactions in `mobile/test/`. |
-| **Android Release APK** | `DISTRIBUTED` | Compiled `app-release.apk` uploaded to Firebase App Distribution (Release ID `4in8io63t25g8`, Project `flutter-dev-395b5`). |
-| **iOS IPA Pathway** | `DOCUMENTED ONLY` | Thorough architectural guide in `docs/07-ios-ipa-distribution.md` detailing TestFlight vs. Firebase iOS Ad-Hoc. |
-| **Deterministic Code Generator** | `EXCLUDED / BOUNDARY` | Betway generates non-deterministic IDs for equivalent wagers; documented as external platform behavior in `docs/03-betway-integration-findings.md`. |
-| **Automated E2E Browser Test on Betway** | `EXCLUDED / BOUNDARY` | Headless browser automation against Betway's live WAF was intentionally excluded per clarification (`docs/02-clarifications.md`). |
+| **Reverse-Engineered Betway Gateway** | `IMPLEMENTED & TESTED` | Reverse-engineered `FindBookABet` and `BookABet` anonymous REST endpoints; 100% offline fixture coverage. |
+| **Canonical Domain Model** | `IMPLEMENTED & TESTED` | `BetSlip`, `BetSelection`, and `AppError` validated with Zod and TypeScript unit tests. |
+| **Stateless 1-Click Convert Engine** | `IMPLEMENTED & TESTED` | Pure composition of Resolve + Create; verified against live Betway Nigeria wagers. |
+| **Full-Stack Next.js 15 Web App** | `DEPLOYED` | Live at [https://betway-nigeria-booking-code.vercel.app](https://betway-nigeria-booking-code.vercel.app) with dark/light UI and mobile-responsive layout. |
+| **Unified Backend REST API** | `DEPLOYED` | Live `/api/v1/health`, `/resolve`, `/create`, and `/convert` endpoints with CORS on Vercel. |
+| **Flutter Android Mobile App** | `DISTRIBUTED` | Release APK built (`mobile/build/app/outputs/flutter-apk/app-release.apk`) and uploaded to Firebase App Distribution (`4in8io63t25g8`). |
+| **iOS IPA Pathway** | `DOCUMENTED ONLY` | Thorough architectural guide in [`07-ios-ipa-distribution.md`](07-ios-ipa-distribution.md). |
+| **Deterministic Code Generator** | `EXCLUDED / BOUNDARY` | Betway generates non-deterministic IDs for equivalent wagers; documented as external platform behavior in [`03-betway-integration-findings.md`](03-betway-integration-findings.md). |
+| **Automated E2E Browser Test on Betway** | `EXCLUDED / BOUNDARY` | Headless browser automation against Betway's live WAF was intentionally excluded per clarification ([`02-clarifications.md`](02-clarifications.md)). |
+| **Automated Quality Gates** | `VERIFIED` | 296 unit/integration/widget tests pass (215 Web + 81 Mobile); zero lint or type errors. |
 
 ---
 

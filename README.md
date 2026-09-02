@@ -5,9 +5,9 @@
 [![Tests Passing](https://img.shields.io/badge/Automated_Tests-296_Passed-blue?logo=vitest)](tests)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20Hexagonal-purple)](docs/architecture/02-application-architecture.md)
 
-A production-grade, full-stack web and mobile solution integrating with **Betway Nigeria** (`betway.com.ng`) to decode, generate, and convert sports betting booking codes statelessly across Web (Next.js 15 / React 19) and Mobile (Flutter 3.x) clients.
+A production-grade, full-stack web and mobile platform integrating with **Betway Nigeria** (`betway.com.ng`) to decode, generate, and convert sports betting booking codes statelessly across Web and Mobile clients.
 
-Developed for the **Stellar Logic** Product-Minded Full-Stack Engineer assessment ([`docs/00-assessment-brief.md`](docs/00-assessment-brief.md), [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md)).
+Developed for the **Stellar Logic** Product-Minded Full-Stack Engineer technical assessment ([`docs/00-assessment-brief.md`](docs/00-assessment-brief.md), [`docs/06-target-role-and-context.md`](docs/06-target-role-and-context.md)). Given an open brief with full technology freedom, the solution was architected with strategic choices: a unified Next.js 15 Backend-For-Frontend on Vercel, a Clean Architecture Flutter client with BLoC/Cubit, and a 100% stateless conversion design eliminating unnecessary database overhead.
 
 ---
 

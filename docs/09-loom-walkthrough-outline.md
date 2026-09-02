@@ -14,7 +14,7 @@ Before clicking **Record** on Loom:
 1. **Tab 1 (Public Web App)**: [https://betway-nigeria-booking-code.vercel.app](https://betway-nigeria-booking-code.vercel.app)
 2. **Tab 2 (Live Betway Nigeria)**: [https://www.betway.com.ng](https://www.betway.com.ng) (Bet slip section visible on right-hand side or mobile view).
 3. **Tab 3 (Firebase Console / Tester Portal)**: [Firebase App Distribution Release Dashboard](https://console.firebase.google.com/project/flutter-dev-395b5/appdistribution/app/android:com.stellarlogic.betway.mobile/releases/4in8io63t25g8?utm_source=firebase-tools)
-4. **Window 2 (IDE / Repository)**: VS Code / Cursor open showing `README.md` and `docs/architecture/02-application-architecture.md` (or Mermaid preview).
+4. **Window 2 (IDE / Repository)**: VS Code / Cursor open showing `README.md` and `architecture/02-application-architecture.md` (or Mermaid preview).
 5. **Window 3 (Android Emulator / Device Screen Mirror)**: Running the Flutter `mobile` app pointing to the live backend.
 6. **Sample Codes Ready on Clipboard/Notes**:
    * Multi-bet code: `BW6D7ABCFB` (Premier League accumulator)
@@ -39,37 +39,44 @@ Before clicking **Record** on Loom:
 
 ---
 
-### Section 1: Intro & Assessment Context (0:00 – 0:45)
+### Section 1: Intro & Assessment Challenge (0:00 – 0:45)
 
-* **Visual on Screen**: Browser showing the live web application ([`https://betway-nigeria-booking-code.vercel.app`](https://betway-nigeria-booking-code.vercel.app)) with camera bubble active.
+* **Visual on Screen**: Browser showing the live web application ([`https://betway-nigeria-booking-code.vercel.app`](https://betway-nigeria-booking-code.vercel.app)) with presenter camera bubble active.
 * **What to Show**: The clean, responsive header with the **Stellar Logic Assessment** badge, live status indicators, and the booking code input card.
 * **Presenter Script**:
-  > *"Hi everyone, I'm excited to present my solution for the Stellar Logic Product-Minded Full-Stack Engineer assessment. Over the past 1–2 days, I built and deployed an end-to-end platform that integrates directly with Betway Nigeria (`betway.com.ng`).*
+  > *"Hi everyone, I'm excited to present my solution for the technical assessment.*
   > 
-  > *The goal was to solve booking code resolution, creation, and 1-click conversion across both a live Next.js web application and a cross-platform Flutter mobile client, backed by clean architecture and production cloud deployments."*
-* **Key Point to Emphasize**: End-to-end product ownership matching Stellar Logic's tech stack (Next.js, React 19, TypeScript, Node.js, Flutter, and Vercel).
+  > *The core challenge from the brief was open-ended: build a working product that integrates with Betway Nigeria (`betway.com.ng`) to solve booking code resolution, creation, and 1-click conversion, verify codes on the live Betway platform, provide a public web URL, and deliver a Flutter mobile viewer via Firebase App Distribution.*
+  > 
+  > *The assessment explicitly allowed full freedom of technology choice: 'UI, backend, and a database if required... using any tools you consider appropriate'.*
+  > 
+  > *As a product-minded engineer, I approached this by designing a production-grade, unified full-stack architecture tailored specifically to Stellar Logic's primary stack: Next.js, React 19, TypeScript, Node.js, and Flutter."*
+* **Key Point to Emphasize**: Clear understanding of the original open assessment brief and product-minded ownership in selecting an optimal modern stack.
 
 ---
 
-### Section 2: End-to-End System Architecture & SOLID Boundaries (0:45 – 1:45)
+### Section 2: Strategic Tech Stack & Architectural Design (0:45 – 1:45)
 
-* **Visual on Screen**: Switch to `docs/architecture/02-application-architecture.md` or Mermaid diagram viewer showing the System Architecture diagram.
-* **What to Show**: The 3 distinct layers: Client Layer (Web + Flutter), Serverless Backend Gateway (`/api/v1/*`), and External Betway Infrastructure.
+* **Visual on Screen**: Switch to `architecture/02-application-architecture.md` or Mermaid diagram viewer showing the System Architecture diagram.
+* **What to Show**: The 3 distinct layers: Client Layer (Web + Flutter), Unified Serverless Backend Gateway (`/api/v1/*`), and External Betway Infrastructure.
 * **Presenter Script**:
-  > *"Let's look at the architectural design. I followed a strict BFF (Backend-For-Frontend) and Clean Hexagonal Architecture governed by six non-negotiable invariants:*
+  > *"Let's examine why I structured the solution this way:*
   > 
-  > *First, **Invariant INV-01**: Neither the React web app nor Flutter mobile client ever talks directly to Betway Nigeria. All requests route through our Next.js API gateway on Vercel.*
+  > *1. **Why Next.js 15 on Vercel**: Instead of maintaining separate frontend and backend servers, I chose Next.js 15 (React 19 / TypeScript) as a unified Backend-For-Frontend (BFF). This deploys serverless route handlers on Vercel with zero server management and low edge latency.*
   > 
-  > *Second, **Invariant INV-02 & INV-03**: Both clients consume identical `/api/v1/*` contracts returning canonical domain models (`BetSlip`, `BetSelection`). This completely decouples our UI from external Betway schema shifts.*
+  > *2. **Why Clean Architecture for Flutter**: For the mobile client, rather than building a quick throwaway prototype, I implemented Clean Architecture using BLoC/Cubit state management, the abstract `SlipGateway` interface, and GetIt dependency injection.*
   > 
-  > *Third, **Invariant INV-06**: External HTTP calls are encapsulated behind the `IBetwayGateway` interface, enabling 100% offline, deterministic fixture testing without network flakiness."*
-* **Key Point to Emphasize**: Strict separation of concerns (Core domain has zero dependencies on React, Next.js, or Flutter).
+  > *3. **Six Non-Negotiable Invariants**:*
+  > * **INV-01**: Neither client ever touches Betway directly; all outbound traffic routes through our serverless backend.*
+  > * **INV-02 & INV-03**: Both Web and Flutter consume the exact same `/api/v1/*` REST contract with canonical domain models (`BetSlip`, `BetSelection`), isolating our UI from external Betway changes.*
+  > * **INV-06**: Betway HTTP calls are isolated behind the `IBetwayGateway` interface, enabling 100% offline, deterministic fixture-based testing."*
+* **Key Point to Emphasize**: Intentional architectural choices: Next.js BFF for the web, Clean Architecture + BLoC for Flutter, and strict SOLID boundaries decoupling core domain logic.
 
 ---
 
 ### Section 3: The Trickiest Technical Decision (1:45 – 2:45)
 
-* **Visual on Screen**: Highlight the `ConvertBookingCodeUseCase` sequence diagram and code in `web/src/core/use-cases/ConvertBookingCodeUseCase.ts`.
+* **Visual on Screen**: Highlight the `ConvertBookingCodeUseCase` sequence diagram and code in `../web/src/core/use-cases/ConvertBookingCodeUseCase.ts`.
 * **What to Show**: The pure composition of `Resolve` + `Create` and the absence of a database layer.
 * **Presenter Script**:
   > *"The trickiest technical decision in this project was twofold:*
@@ -121,7 +128,7 @@ Before clicking **Record** on Loom:
   > 
   > *Notice that entering a booking code decodes the slip using the exact same `/api/v1/resolve` backend contract.*
   > 
-  > *For delivery, the Android release APK (`app-release.apk`) was built and distributed via **Firebase App Distribution** (Project `flutter-dev-395b5`, Release ID `4in8io63t25g8`) with active tester onboarding links. Furthermore, [`docs/07-ios-ipa-distribution.md`](docs/07-ios-ipa-distribution.md) documents the complete iOS IPA pathway via Apple TestFlight and Fastlane."*
+  > *For delivery, the Android release APK (`app-release.apk`) was built and distributed via **Firebase App Distribution** (Project `flutter-dev-395b5`, Release ID `4in8io63t25g8`) with active tester onboarding links. Furthermore, [`07-ios-ipa-distribution.md`](07-ios-ipa-distribution.md) documents the complete iOS IPA pathway via Apple TestFlight and Fastlane."*
 * **Key Point to Emphasize**: Clean mobile architecture (DIP, SRP) and real-world mobile CI/CD distribution.
 
 ---
@@ -145,7 +152,7 @@ During the recording, adhere strictly to these verified facts:
 | :--- | :--- |
 | **DO** claim that `FindBookABet` and `BookABet` are public anonymous REST endpoints verified by network forensics. | **DO NOT** claim Betway provides an official developer API or API documentation. |
 | **DO** claim that the conversion workflow is a pure stateless composition of Resolve and Create. | **DO NOT** claim the booking code generator is a deterministic hash (Betway issues different random codes for the same wager). |
-| **DO** claim that Android APK release `4in8io63t25g8` is live on Firebase App Distribution. | **DO NOT** claim an iOS IPA is published to the App Store (iOS is documented in `docs/07-ios-ipa-distribution.md`). |
+| **DO** claim that Android APK release `4in8io63t25g8` is live on Firebase App Distribution. | **DO NOT** claim an iOS IPA is published to the App Store (iOS is documented in `07-ios-ipa-distribution.md`). |
 | **DO** claim 296 passing automated unit, integration, and widget tests. | **DO NOT** claim headless automated Playwright tests run against live Betway in CI (excluded per clarification). |
 
 ---
